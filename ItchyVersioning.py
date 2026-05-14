@@ -175,7 +175,7 @@ class Commit:
         return commit
 
 
-class ScratchVCS:
+class ItchyVersioning:
     """
     Class that holds the majority of the highlevel functions dealing with the creation and management of the VCS
     """
@@ -185,12 +185,10 @@ class ScratchVCS:
             os.mkdir(vcs_dir)
             os.mkdir(vcs_dir + "/blobs")
         # TODO: Allow sessionid auth, alolow other method of providing user/passwd
-        self.sas = sa.login(
-            user, passwd
-        )
+        self.sas = sa.login(user, passwd)
         self.prjid = project
         self.prj = self.sas.connect_project(int(project))
-        self.log = logging.getLogger(f"ScratchVCS-{project}")
+        self.log = logging.getLogger(f"ItchyVersioning-{project}")
         self.head = None
         self.dir = vcs_dir
 
@@ -292,7 +290,7 @@ class ScratchVCS:
             json.dump(vcsdata, cHist)
 
     @classmethod
-    def fromFile(cls, user: str, passwd: str, file: str) -> ScratchVCS:
+    def fromFile(cls, user: str, passwd: str, file: str) -> ItchyVersioning:
         """
         Create a VCS file from a commitHistory file with project data
         """
